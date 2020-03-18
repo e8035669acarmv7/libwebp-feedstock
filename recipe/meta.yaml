@@ -29,11 +29,7 @@ requirements:
 test:
   source_files:
     - examples/test.webp
-
   commands:
-    - test -f $PREFIX/bin/cwebp  # [not win]
-    - test -f $PREFIX/bin/dwebp  # [not win]
-    - dwebp examples/test.webp  # [not win]
     - if not exist %LIBRARY_LIB%\\libwebp.lib exit 1  # [win]
     - if not exist %LIBRARY_LIB%\\libwebpdemux.lib exit 1  # [win]
     - if not exist %LIBRARY_LIB%\\libwebpdecoder.lib exit 1  # [win]
@@ -77,6 +73,13 @@ outputs:  # [not win]
         - libpng  # [not win]
         - libtiff  # [not win]
         - giflib  # [not win]
+    test:
+      source_files:
+        - examples/test.webp
+      commands:
+        - test -f $PREFIX/bin/cwebp  # [not win]
+        - test -f $PREFIX/bin/dwebp  # [not win]
+        - dwebp examples/test.webp  # [not win]
 
 about:
   home: https://developers.google.com/speed/webp
