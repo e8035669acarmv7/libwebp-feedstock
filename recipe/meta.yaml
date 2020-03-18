@@ -73,13 +73,13 @@ outputs:  # [not win]
         - libpng  # [not win]
         - libtiff  # [not win]
         - giflib  # [not win]
-    test:
-      source_files:
-        - examples/test.webp
-      commands:
-        - test -f $PREFIX/bin/cwebp  # [not win]
-        - test -f $PREFIX/bin/dwebp  # [not win]
-        - dwebp examples/test.webp  # [not win]
+    test:                             # [not win]
+      source_files:                   # [not win]
+        - examples/test.webp          # [not win]
+      commands:                       # [not win]
+        - test -f $PREFIX/bin/cwebp   # [not win]
+        - test -f $PREFIX/bin/dwebp   # [not win]
+        - dwebp examples/test.webp    # [not win]
 
 about:
   home: https://developers.google.com/speed/webp
