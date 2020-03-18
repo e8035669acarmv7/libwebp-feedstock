@@ -1,7 +1,8 @@
 {% set version = "1.1.0" %}
 
 package:
-  name: libwebp
+  name: libwebp-base   # [not win]
+  name: libwebp        # [win]
   version: {{ version }}
 
 source:
@@ -11,19 +12,20 @@ source:
 build:
   number: 3
   run_exports:  # [win]
-    # https://abi-laboratory.pro/?view=timeline&l=libwebp  # [win]
-    - {{ pin_subpackage('libwebp', max_pin='x.x') }}  # [win]
+    # https://abi-laboratory.pro/?view=timeline&l=libwebp
+    - {{ pin_subpackage('libwebp', max_pin='x.x') }}       # [win]
+    - {{ pin_subpackage('libwebp-base', max_pin='x.x') }}  # [not win]
+  ignore_run_exports:
+    - jpeg
+    - libpng
+    - libtiff
+    - giflib
 
 requirements:
   build:
     - {{ compiler('c') }}
     - make  # [not win]
   host:
-    - jpeg  # [not win]
-    - libpng  # [not win]
-    - libtiff  # [not win]
-    - giflib  # [not win]
-  run:
     - jpeg  # [not win]
     - libpng  # [not win]
     - libtiff  # [not win]
@@ -51,26 +53,7 @@ test:
     - dwebp examples\\test.webp  # [win]
 
 outputs:  # [not win]
-  - name: libwebp  # [not win]
-    build:  # [not win]
-      run_exports:  # [not win]
-        # https://abi-laboratory.pro/?view=timeline&l=libwebp  # [not win]
-        - {{ pin_subpackage('libwebp-base', max_pin='x.x') }}  # [not win]
-    files:  # [not win]
-      - bin/  # [not win]
-    requirements:  # [not win]
-      run:  # [not win]
-        - {{ pin_subpackage('libwebp-base', exact=True) }}  # [not win]
-        - jpeg  # [not win]
-        - libpng  # [not win]
-        - libtiff  # [not win]
-        - giflib  # [not win]
-
   - name: libwebp-base  # [not win]
-    build:  # [not win]
-      run_exports:  # [not win]
-        # https://abi-laboratory.pro/?view=timeline&l=libwebp  # [not win]
-        - {{ pin_subpackage('libwebp-base', max_pin='x.x') }}  # [not win]
     requirements:  # [not win]
       run_constrained:  # [not win]
         - libwebp =={{ version }}  # [not win]
@@ -85,6 +68,17 @@ outputs:  # [not win]
         - test -f $PREFIX/include/webp/decode.h  # [not win]
         - test -f $PREFIX/include/webp/encode.h  # [not win]
         - test -f $PREFIX/include/webp/types.h  # [not win]
+
+  - name: libwebp  # [not win]
+    files:  # [not win]
+      - bin/  # [not win]
+    requirements:  # [not win]
+      run:  # [not win]
+        - {{ pin_subpackage('libwebp-base', exact=True) }}  # [not win]
+        - jpeg  # [not win]
+        - libpng  # [not win]
+        - libtiff  # [not win]
+        - giflib  # [not win]
 
 about:
   home: https://developers.google.com/speed/webp
