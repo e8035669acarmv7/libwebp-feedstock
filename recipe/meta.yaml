@@ -1,7 +1,7 @@
 {% set version = "1.1.0" %}
 
 package:
-  name: libwebp-base   # [not win]
+  name: libwebp-split   # [not win]
   name: libwebp        # [win]
   version: {{ version }}
 
@@ -15,11 +15,6 @@ build:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_subpackage('libwebp', max_pin='x.x') }}       # [win]
     - {{ pin_subpackage('libwebp-base', max_pin='x.x') }}  # [not win]
-  ignore_run_exports:
-    - jpeg
-    - libpng
-    - libtiff
-    - giflib
 
 requirements:
   build:
@@ -53,9 +48,12 @@ test:
     - dwebp examples\\test.webp  # [win]
 
 outputs:  # [not win]
-  - name: libwebp-base  # [not win]
-    requirements:  # [not win]
-      run_constrained:  # [not win]
+  - name: libwebp-base         # [not win]
+    requirements:              # [not win]
+      build:                   # [not win]
+        - {{ compiler('c') }}  # [not win]
+        - make                 # [not win]
+      run_constrained:         # [not win]
         - libwebp =={{ version }}  # [not win]
     files:  # [not win]
       - include/  # [not win]
