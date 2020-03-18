@@ -87,7 +87,6 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libwebp-green.svg)](https://anaconda.org/conda-forge/libwebp) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libwebp.svg)](https://anaconda.org/conda-forge/libwebp) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libwebp.svg)](https://anaconda.org/conda-forge/libwebp) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libwebp.svg)](https://anaconda.org/conda-forge/libwebp) |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-libwebp--base-green.svg)](https://anaconda.org/conda-forge/libwebp-base) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libwebp-base.svg)](https://anaconda.org/conda-forge/libwebp-base) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libwebp-base.svg)](https://anaconda.org/conda-forge/libwebp-base) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libwebp-base.svg)](https://anaconda.org/conda-forge/libwebp-base) |
 
 Installing libwebp
 ==================
@@ -98,10 +97,10 @@ Installing `libwebp` from the `conda-forge` channel can be achieved by adding `c
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `libwebp, libwebp-base` can be installed with:
+Once the `conda-forge` channel has been enabled, `libwebp` can be installed with:
 
 ```
-conda install libwebp libwebp-base
+conda install libwebp
 ```
 
 It is possible to list all of the versions of `libwebp` available on your platform with:
