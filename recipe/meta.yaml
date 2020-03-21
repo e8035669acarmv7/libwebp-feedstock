@@ -1,8 +1,7 @@
 {% set version = "1.1.0" %}
 
 package:
-  name: libwebp-split   # [not win]
-  name: libwebp        # [win]
+  name: libwebp
   version: {{ version }}
 
 source:
@@ -25,6 +24,13 @@ requirements:
     - libpng  # [not win]
     - libtiff  # [not win]
     - giflib  # [not win]
+    - libwebp-base  {{ version }}  # [not win]
+  run:
+    - jpeg  # [not win]
+    - libpng  # [not win]
+    - libtiff  # [not win]
+    - giflib  # [not win]
+    - libwebp-base  {{ version }}  # [not win]
 
 test:
   source_files:
@@ -42,44 +48,6 @@ test:
     - if not exist %LIBRARY_INC%\\webp\\encode.h exit 1  # [win]
     - if not exist %LIBRARY_INC%\\webp\\types.h exit 1  # [win]
     - dwebp examples\\test.webp  # [win]
-
-outputs:  # [not win]
-  - name: libwebp-base         # [not win]
-    requirements:              # [not win]
-      build:                   # [not win]
-        - {{ compiler('c') }}  # [not win]
-        - make                 # [not win]
-      run_constrained:         # [not win]
-        - libwebp =={{ version }}  # [not win]
-    files:  # [not win]
-      - include/  # [not win]
-      - share/  # [not win]
-      - lib/  # [not win]
-    test:  # [not win]
-      commands:  # [not win]
-        - test -f $PREFIX/lib/libwebp.a  # [not win]
-        - test -f $PREFIX/lib/libwebp{{ SHLIB_EXT }}  # [not win]
-        - test -f $PREFIX/include/webp/decode.h  # [not win]
-        - test -f $PREFIX/include/webp/encode.h  # [not win]
-        - test -f $PREFIX/include/webp/types.h  # [not win]
-
-  - name: libwebp  # [not win]
-    files:  # [not win]
-      - bin/  # [not win]
-    requirements:  # [not win]
-      run:  # [not win]
-        - {{ pin_subpackage('libwebp-base', exact=True) }}  # [not win]
-        - jpeg  # [not win]
-        - libpng  # [not win]
-        - libtiff  # [not win]
-        - giflib  # [not win]
-    test:                             # [not win]
-      source_files:                   # [not win]
-        - examples/test.webp          # [not win]
-      commands:                       # [not win]
-        - test -f $PREFIX/bin/cwebp   # [not win]
-        - test -f $PREFIX/bin/dwebp   # [not win]
-        - dwebp examples/test.webp    # [not win]
 
 about:
   home: https://developers.google.com/speed/webp
