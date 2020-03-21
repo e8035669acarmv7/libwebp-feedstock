@@ -92,9 +92,13 @@ about:
     WebP is a method of lossy and lossless compression that can be used on a large variety of photographic,
     translucent and graphical images found on the web. The degree of lossy compression is adjustable so a
     user can choose the trade-off between file size and image quality.
+    libwebp-base provides the headers and shared libraries. For cwebp and dwep,
+    binaries install libwebp.
   doc_url: https://developers.google.com/speed/webp/docs/using
   dev_url: https://chromium.googlesource.com/webm/libwebp
 
 extra:
   recipe-maintainers:
+    - carterbox
     - dschreij
+    - ocefpaf
