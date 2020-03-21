@@ -12,7 +12,7 @@ build:
   number: 3
   run_exports:  # [win]
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
-    - {{ pin_subpackage('libwebp-base', max_pin='x.x') }}  # [not win]
+    - {{ pin_compatible('libwebp-base', max_pin='x.x') }}  # [not win]
 
 requirements:
   build:
