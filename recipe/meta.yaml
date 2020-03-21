@@ -22,12 +22,11 @@ requirements:
     - libtiff  # [not win]
     - libwebp-base {{ version }}  # [not win]
   run:
-    - {{ pin_compatible("giflib", max_pin="x.x") }}  # [not win]
-    - {{ pin_compatible("jpeg", max_pin="x") }}      # [not win]
-    - {{ pin_compatible("libpng", max_pin="x.x") }}  # [not win]
-    - {{ pin_compatible("libtiff", max_pin="x") }}   # [not win]
-    - {{ pin_compatible('libwebp-base', max_pin='x') }}  # [not win]
-    - libwebp-base {{ version }}  # [win]
+    - giflib   # [not win]
+    - jpeg     # [not win]
+    - libpng   # [not win]
+    - libtiff  # [not win]
+    - libwebp-base {{ version }}
 
 test:
   source_files:
