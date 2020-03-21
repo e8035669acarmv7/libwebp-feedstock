@@ -10,6 +10,9 @@ source:
 
 build:
   number: 3
+  run_exports:
+    # https://abi-laboratory.pro/?view=timeline&l=libwebp
+    - {{ pin_compatible('libwebp-base') }}
 
 requirements:
   build:
@@ -20,7 +23,7 @@ requirements:
     - jpeg     # [not win]
     - libpng   # [not win]
     - libtiff  # [not win]
-    - libwebp-base {{ version }}  # [not win]
+    - libwebp-base {{ version }}
   run:
     - giflib   # [not win]
     - jpeg     # [not win]
@@ -35,6 +38,8 @@ test:
     - test -f $PREFIX/bin/cwebp  # [not win]
     - test -f $PREFIX/bin/dwebp  # [not win]
     - dwebp examples/test.webp  # [not win]
+    - if not exist %LIBRARY_BIN%\\cwebp.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\dwebp.exe exit 1  # [win]
     - dwebp examples\\test.webp  # [win]
 
 about:
