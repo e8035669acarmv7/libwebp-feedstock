@@ -16,6 +16,7 @@ build:
 
 requirements:
   build:
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}  # [not win]
     - make                 # [not win]
   host:
