@@ -16,18 +16,19 @@ build:
 
 requirements:
   build:
-    - {{ compiler('c') }}  # [unix]
+    - {{ compiler('c') }}
     - cmake >=3.7          # [unix]
     - gnuconfig            # [unix]
     - make                 # [unix]
   host:
-    - giflib   # [not win]
-    - jpeg     # [not win]
-    - libpng   # [not win]
-    - libtiff  # [not win]
-    - libwebp-base {{ version }}
+  # FIXME: gif2webp does not build on Windows
+    - giflib  # [not win]
+    - jpeg
+    - libpng
+    - libtiff
+    - libwebp-base {{ version }}.*
   run:
-    - libwebp-base {{ version }}
+    - libwebp-base {{ version }}.*
 
 test:
   source_files:
@@ -49,8 +50,12 @@ test:
     - test ! -f $PREFIX/lib/libwebpdemux.a   # [not win]
     - test ! -f $PREFIX/lib/libwebpmux.a     # [not win]
     - dwebp examples/test.webp  # [not win]
-    - if not exist %LIBRARY_BIN%\\cwebp.exe exit 1  # [win]
-    - if not exist %LIBRARY_BIN%\\dwebp.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\cwebp.exe exit 1     # [win]
+    - if not exist %LIBRARY_BIN%\\dwebp.exe exit 1     # [win]
+    # - if not exist %LIBRARY_BIN%\\gif2webp.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\img2webp.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\webpinfo.exe exit 1  # [win]
+    - if not exist %LIBRARY_BIN%\\webpmux.exe exit 1   # [win]
     - dwebp examples\\test.webp  # [win]
 
 about:
