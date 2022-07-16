@@ -1,4 +1,4 @@
-{% set version = "1.2.2" %}
+{% set version = "1.2.3" %}
 
 package:
   name: libwebp
@@ -6,7 +6,7 @@ package:
 
 source:
   url: http://storage.googleapis.com/downloads.webmproject.org/releases/webp/libwebp-{{ version }}.tar.gz
-  sha256: 7656532f837af5f4cec3ff6bafe552c044dc39bf453587bd5b77450802f4aee6
+  sha256: f5d7ab2390b06b8a934a4fc35784291b3885b557780d099bd32f09241f9d83f9
 
 build:
   number: 0
@@ -16,9 +16,10 @@ build:
 
 requirements:
   build:
-    - gnuconfig  # [unix]
-    - {{ compiler('c') }}  # [not win]
-    - make                 # [not win]
+    - {{ compiler('c') }}  # [unix]
+    - cmake >=3.7          # [unix]
+    - gnuconfig            # [unix]
+    - make                 # [unix]
   host:
     - giflib   # [not win]
     - jpeg     # [not win]
@@ -26,18 +27,27 @@ requirements:
     - libtiff  # [not win]
     - libwebp-base {{ version }}
   run:
-    - giflib   # [not win]
-    - jpeg     # [not win]
-    - libpng   # [not win]
-    - libtiff  # [not win]
     - libwebp-base {{ version }}
 
 test:
   source_files:
     - examples/test.webp
   commands:
-    - test -f $PREFIX/bin/cwebp  # [not win]
-    - test -f $PREFIX/bin/dwebp  # [not win]
+  # This package is binaries only; libraries in libwebp-base. Various binaries
+  # link against libtiff, libpng, libgif, so they must be separated to prevent
+  # circular imports https://github.com/conda-forge/staged-recipes/pull/11101
+    - test -f $PREFIX/bin/cwebp     # [not win]
+    - test -f $PREFIX/bin/dwebp     # [not win]
+    - test -f $PREFIX/bin/gif2webp  # [not win]
+    - test -f $PREFIX/bin/img2webp  # [not win]
+    - test -f $PREFIX/bin/webpinfo  # [not win]
+    - test -f $PREFIX/bin/webpmux   # [not win]
+  # static libs removed in 1.2.3. They are not allowed on conda-forge.
+  # See also CFEP-18
+    - test ! -f $PREFIX/lib/libwebdecoder.a  # [not win]
+    - test ! -f $PREFIX/lib/libwebp.a        # [not win]
+    - test ! -f $PREFIX/lib/libwebpdemux.a   # [not win]
+    - test ! -f $PREFIX/lib/libwebpmux.a     # [not win]
     - dwebp examples/test.webp  # [not win]
     - if not exist %LIBRARY_BIN%\\cwebp.exe exit 1  # [win]
     - if not exist %LIBRARY_BIN%\\dwebp.exe exit 1  # [win]
