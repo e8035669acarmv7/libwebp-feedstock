@@ -22,10 +22,10 @@ requirements:
     - make                 # [unix]
   host:
   # FIXME: gif2webp does not build on Windows
-    - giflib  # [not win]
-    - jpeg
-    - libpng
-    - libtiff
+    - giflib   # [not win]
+    - jpeg     # [not win]
+    - libpng   # [not win]
+    - libtiff  # [not win]
     - libwebp-base {{ version }}.*
   run:
     - libwebp-base {{ version }}.*
