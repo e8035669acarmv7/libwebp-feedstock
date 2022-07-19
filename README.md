@@ -13,11 +13,7 @@ Development: https://chromium.googlesource.com/webm/libwebp
 
 Documentation: https://developers.google.com/speed/webp/docs/using
 
-WebP is a method of lossy and lossless compression that can be used on a large variety of photographic,
-translucent and graphical images found on the web. The degree of lossy compression is adjustable so a
-user can choose the trade-off between file size and image quality.
-libwebp-base provides the headers and shared libraries. For cwebp and dwep,
-binaries install libwebp.
+WebP is a method of lossy and lossless compression that can be used on a large variety of photographic, translucent and graphical images found on the web. The degree of lossy compression is adjustable so a user can choose the trade-off between file size and image quality. libwebp-base provides the headers and shared libraries. For cwebp and dwep, binaries install libwebp.
 
 
 Current build status
