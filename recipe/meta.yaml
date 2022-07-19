@@ -9,7 +9,7 @@ source:
   sha256: f5d7ab2390b06b8a934a4fc35784291b3885b557780d099bd32f09241f9d83f9
 
 build:
-  number: 0
+  number: 1
   run_exports:
     # https://abi-laboratory.pro/?view=timeline&l=libwebp
     - {{ pin_compatible('libwebp-base') }}
@@ -17,7 +17,6 @@ build:
 requirements:
   build:
     - {{ compiler('c') }}
-    - cmake >=3.7          # [unix]
     - gnuconfig            # [unix]
     - make                 # [unix]
   host:

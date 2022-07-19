@@ -4,24 +4,31 @@ set -ex
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* .
 
-mkdir build
-cd build
+# The libwebp build script doesn't pick all the other libraries up on its own
+# (even though it should by using PREFIX), so pass all the necessary parameters
+# for finding other imaging libraries to the configure script.
+./configure \
+    --disable-dependency-tracking \
+    --disable-gl \
+    --disable-static \
+    --enable-libwebpdecoder \
+    --enable-libwebpdemux \
+    --enable-libwebpmux \
+    --prefix=${SRC_DIR}/prefix \
+    --with-gifincludedir=${PREFIX}/include \
+    --with-giflibdir=${PREFIX}/lib \
+    --with-jpegincludedir=${PREFIX}/include \
+    --with-jpeglibdir=${PREFIX}/lib \
+    --with-tiffincludedir=${PREFIX}/include \
+    --with-tifflibdir=${PREFIX}/lib \
 
-cmake .. ${CMAKE_ARGS} \
-    -DBUILD_SHARED_LIBS:BOOL=ON \
-    -DCMAKE_INSTALL_PREFIX=$PREFIX \
-    -DWEBP_BUILD_CWEBP:BOOL=ON \
-    -DWEBP_BUILD_DWEBP:BOOL=ON \
-    -DWEBP_BUILD_EXTRAS:BOOL=OFF \
-    -DWEBP_BUILD_GIF2WEBP:BOOL=ON \
-    -DWEBP_BUILD_IMG2WEBP:BOOL=ON \
-    -DWEBP_BUILD_LIBWEBPMUX:BOOL=ON \
-    -DWEBP_BUILD_VWEBP:BOOL=ON \
-    -DWEBP_BUILD_WEBP_JS:BOOL=OFF \
-    -DWEBP_BUILD_WEBPINFO:BOOL=ON \
-    -DWEBP_BUILD_WEBPMUX:BOOL=ON \
-    -DWEBP_LINK_STATIC:BOOL=OFF \
+make
 
-cmake --build .
+if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+make check
+fi
 
-cmake --install .
+make install
+
+cp -R prefix/bin $PREFIX/
+cp -R prefix/share $PREFIX/
