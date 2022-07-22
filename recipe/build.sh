@@ -31,6 +31,6 @@ fi
 make install
 
 # Remove all artifacts that are shipped with libwebp-base
-rm -f $PREFIX/include
-rm -f $PREFIX/lib
-rm -f $PREFIX/share
+rm -rf $PREFIX/include
+rm -rf $PREFIX/lib
+rm -rf $PREFIX/share
