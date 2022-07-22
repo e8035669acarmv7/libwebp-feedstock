@@ -14,7 +14,7 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* .
     --enable-libwebpdecoder \
     --enable-libwebpdemux \
     --enable-libwebpmux \
-    --prefix=${SRC_DIR}/prefix \
+    --prefix=${PREFIX} \
     --with-gifincludedir=${PREFIX}/include \
     --with-giflibdir=${PREFIX}/lib \
     --with-jpegincludedir=${PREFIX}/include \
@@ -30,5 +30,7 @@ fi
 
 make install
 
-cp -R prefix/bin $PREFIX/
-cp -R prefix/share $PREFIX/
+# Remove all artifacts that are shipped with libwebp-base
+rm -f $PREFIX/include
+rm -f $PREFIX/lib
+rm -f $PREFIX/share
