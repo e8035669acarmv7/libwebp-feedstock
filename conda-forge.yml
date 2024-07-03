@@ -1,3 +1,5 @@
+bot:
+  check_solvable: true
 build_platform:
   osx_arm64: osx_64
 conda_build:
@@ -10,4 +12,4 @@ provider:
   linux_aarch64: azure
   linux_ppc64le: azure
   win: azure
-test_on_native_only: true
+test: native_and_emulated
